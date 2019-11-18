@@ -1,0 +1,5 @@
+{"errorFile":"D:\\shure\\shure-thinkphp\\application\\common\\utils\\VcodeUtil.php","errorMsg":"Fatal error: Class 'think\\captcha\\Captcha' not found","errorLine":30}
+{"errorFile":"D:\\shure\\shure-thinkphp\\application\\common\\utils\\VcodeUtil.php","errorMsg":"Fatal error: Class 'think\\captcha\\Captcha' not found","errorLine":30}
+{"errorFile":"D:\\shure\\shure-thinkphp\\application\\common\\utils\\VcodeUtil.php","errorMsg":"Fatal error: Class 'think\\captcha\\Captcha' not found","errorLine":30}
+{"errorFile":"D:\\shure\\shure-thinkphp\\application\\common\\utils\\VcodeUtil.php","errorMsg":"Fatal error: Class 'think\\captcha\\Captcha' not found","errorLine":30}
+{"errorFile":"D:\\shure\\shure-thinkphp\\application\\common\\utils\\VcodeUtil.php","errorMsg":"Fatal error: Class 'think\\captcha\\Captcha' not found","errorLine":30}
