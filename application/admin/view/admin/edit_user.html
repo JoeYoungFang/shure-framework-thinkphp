@@ -1,0 +1,45 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <input type="hidden" name="id" value="{{$admin.id}}">
+            {{:widget('common/Form/input',['登录名','username',$admin.username,true])}}
+            {{:widget('common/Form/input',['登录密码','password','',false,false,true])}}
+            {{:widget('common/Form/input',['真实姓名','realname',$admin.realname,true])}}
+            {{:widget('common/Form/input',['邮件','email',$admin.email,'email'])}}
+            {{if condition="$self == false"}}
+            {{:widget('common/Form/select',['角色','admin_role_id',$admin.admin_role_id,$adminRoleSelect])}}
+            {{/if}}
+            {{:widget('common/Form/submit')}}
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    var selfEdit = "{{$self === true ? 1 : 0}}";
+    layui.use(['form','jquery'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        //监听提交
+        form.on('submit(submitForm)', function(data){
+            //console.log(data)
+            ajaxRequest('',data.field,function (res) {
+                if(res.code == 200){
+                    if(window == window.parent){
+                        top.location.href = "{{:url('Index/index')}}";
+                    }
+                    if(!selfEdit){
+                        xadmin.father_reload(); // 可以对父窗口进行刷新
+                    }else{
+                        xadmin.close();//关闭当前frame
+                    }
+                }else{
+                    layerMsg(res.msg)
+                }
+            })
+            return false;
+        });
+    });
+</script>

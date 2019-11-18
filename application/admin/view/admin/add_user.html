@@ -1,0 +1,28 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            {{:widget('common/Form/input',['登录名','username','',true])}}
+            {{:widget('common/Form/input',['登录密码','password','',true,false,true])}}
+            {{:widget('common/Form/input',['真实姓名','realname','',true])}}
+            {{:widget('common/Form/input',['邮件','email','','email'])}}
+            {{:widget('common/Form/select',['角色','admin_role_id','',$adminRoleSelect])}}
+            {{:widget('common/Form/submit')}}
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        //监听提交
+        form.on('submit(submitForm)', function(data){
+            //console.log(data)
+            ajaxRequest('',data.field)
+            return false;
+        });
+    });
+</script>

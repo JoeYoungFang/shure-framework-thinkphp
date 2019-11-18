@@ -1,0 +1,10 @@
+<div class="layui-form-item">
+    {{volist name="manyInput" id="vo"}}
+    <div class="layui-inline">
+        <label class="layui-form-label">{{$vo.lable}}</label>
+        <div class="layui-input-inline">
+            <input type="text" name="{{$vo.name}}" value="{{$vo.value}}" placeholder="{{$vo.lable}}" {{if condition="$vo.require"}}required lay-verify="{{$vo.require}}" autocomplete="off"{{/if}} class="layui-input" {{if condition="$vo.disabled"}}disabled{{/if}}>
+        </div>
+    </div>
+    {{/volist}}
+</div>

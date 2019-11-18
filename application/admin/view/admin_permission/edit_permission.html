@@ -1,0 +1,48 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <input type="hidden" name="id" value="{{$permissionDetail.id}}">
+            {{if condition="$parentPermissionDetail"}}
+            {{:widget('common/Form/input',['父级权限','',$parentPermissionDetail['name'],true,true])}}
+            <input type="hidden" name="parent_id" value="{{$parentPermissionDetail.id}}">
+            {{:widget('common/Form/input',['权限节点名','name',$permissionDetail.name,true])}}
+            {{:widget('common/Form/input',['模块名','model',$permissionDetail.model,true,true])}}
+            {{:widget('common/Form/input',['控制器名','controller',$permissionDetail.controller,true])}}
+            {{:widget('common/Form/input',['方法名','action',$permissionDetail.action,true])}}
+            {{else /}}
+            {{:widget('common/Form/input',['权限节点名','name',$permissionDetail.name,true])}}
+            {{:widget('common/Form/input',['模块名','model',$permissionDetail.model,true,true])}}
+            {{:widget('common/Form/input',['控制器名','controller',$permissionDetail.controller,false])}}
+            {{:widget('common/Form/input',['方法名','action',$permissionDetail.action,false])}}
+            {{/if}}
+            {{:widget('common/Form/input',['图标','icon',$permissionDetail.icon,false])}}
+            {{:widget('common/Form/select',['菜单显示','is_play',$permissionDetail.is_play,array(0 => '不显示',1 => '显示')])}}
+            {{:widget('common/Form/submit')}}
+        </form>
+    </div>
+</div>
+</body>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+
+    layui.use(['form','jquery'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        //监听提交
+        form.on('submit(submitForm)', function(data){
+            ajaxRequest('',data.field,function (res) {
+                if(res.code == 200){
+                    xadmin.close();//关闭当前frame
+                    xadmin.father_reload(); // 可以对父窗口进行刷新
+                }else{
+                    layerMsg(res.msg)
+                }
+            })
+            return false;
+        });
+    });
+</script>

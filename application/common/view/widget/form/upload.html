@@ -1,0 +1,164 @@
+<div class="layui-form-item">
+    <label class="layui-form-label">{{$label}}</label>
+    <div class="layui-input-block">
+        <div class="imgList {{$name}}List">
+            {{volist name="list" id="vo"}}
+            {{if condition="$vo"}}
+            <li>
+                <img src="{{$vo}}" alt="img" class="imgItem" onclick="previewImg(this)">
+                <span> X </span>
+                <input type="hidden" name="{{$name}}[]" value="{{$vo}}">
+            </li>
+            {{/if}}
+            {{/volist}}
+
+            <!--<li>
+                <img src="/uploads/20190720/1062569757d2995b8c536f6c0ecac440.jpg" alt="img" class="imgItem">
+                <span> X </span>
+                <input type="hidden" name="{{$name}}[]" value="/uploads/20190720/1062569757d2995b8c536f6c0ecac440.jpg">
+            </li>-->
+        </div>
+        <button type="button" class="layui-btn" id="{{$name}}">
+            <i class="layui-icon">&#xe67c;</i>上传图片
+        </button>
+        <button type="button" class="{{$name}}" style="display: none">
+            <i class="layui-icon">&#xe67c;</i>上传图片
+        </button>
+    </div>
+</div>
+<div style="display: none;text-align: center;width: 100%;height: 360px;" class="cutimgdiv-{{$name}}">
+    <img src=""><br>
+    <button type="button" class="layui-btn layui-btn-normal" onclick="uploadCutImg('{{$name}}')">裁剪确认</button>
+</div>
+<style>
+    .imgList > li{
+        display: inline-block;;
+        position: relative;
+        width: 120px;
+        /*height: 120px;*/
+        cursor: pointer;
+        margin-right: 10px;
+        padding-bottom: 10px;
+    }
+    .imgList > li > span{
+        display: block;
+        position: absolute;
+        border: 1px solid silver;
+        padding: 2px 5px;
+        border-radius: 45%;
+        top: 4px;
+        right: 4px;
+        color: silver;
+    }
+    .imgList > li > span:hover{
+        color: red;
+        border: 1px solid red;
+    }
+    .imgItem{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script>
+    var winIndex,uploadinIndex,cropper{{$name}};
+    layui.use(['upload','jquery','layer'], function(){
+        var upload = layui.upload;
+        var $ = layui.jquery;
+        var layer = layui.layer
+        //执行实例
+        upload.render({
+            elem: '#' + "{{$name}}" //绑定元素
+            ,accept:'images'
+            ,auto: false //选择文件后不自动上传
+            ,acceptMime:'image/*'
+            ,multiple:true
+            ,bindAction:'.' + "{{$name}}"
+            ,url: '/admin/NoCheckPermission/uploadFile' //上传接口
+            ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+            }
+            ,choose: function(obj){
+                var files = obj.pushFile();
+                if($("."+"{{$name}}"+"List > li > span").length + Object.keys(files).length > "{{$limit}}"){
+                    layer.closeAll('loading'); //关闭loading
+                    obj.preview(function(index, file, result){delete files[index]; })
+                    layerMsg("文件个数超过限制");
+                }else{
+                    obj.preview(function(index, file, result){//清空整个文件队列
+                        delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                        $('.'+"cutimgdiv-{{$name}}").find('img').attr('src',result);
+                        winIndex = layer.open({
+                            type:1,
+                            area:['100%','100%'],
+                            content:$('.'+"cutimgdiv-{{$name}}")
+                        })
+                        //debugger
+                        if(eval('cropper{{$name}} instanceof Cropper')){        //摧毁原图像，不然会保留第一次的图像信息，不重画
+                            //cropper.destroy();
+                            eval('cropper{{$name}}.replace(result)');
+                        }else{
+                            cropper{{$name}} = new Cropper($('.'+"cutimgdiv-{{$name}}").find('img')[0], {
+                                aspectRatio: '{{$width}}' / '{{$height}}',
+                                viewMode:1,
+                                movable:true,
+                                dragMode:'move',
+                                cropBoxMovable:false
+                            });
+                        }
+                    });
+                }
+
+            }
+            /*,done: function(res){
+                //console.log(res.data.src);
+                $(".imgList").append(str.replace(subStr,res.data.src));
+                layer.closeAll('loading'); //关闭loading
+            }
+            ,error: function(res){
+                layer.closeAll('loading'); //关闭loading
+                layerMsg("上传失败");
+            }*/
+        });
+
+
+    });
+    function uploadCutImg(name) {
+        uploadinIndex = layer.load(0,{shade: [0.5, '#393D49']});
+        var cas = eval('cropper'+name+'.getCroppedCanvas()');
+        var base64url = cas.toDataURL('image/jpeg');
+        var cuttfile = dataURLtoFile(base64url,Date.parse(new Date())+'.jpg');
+        var formData = new FormData();
+        formData.append("file",cuttfile);
+        formData.append("path","{{$path}}");
+        $.ajax({
+            url: '/admin/NoCheckPermission/uploadFile',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success:function (res) {
+                res = JSON.parse(res)
+                $("."+name+"List").append('<li>\n' +
+                    '                <img src="'+res.data.src+'" alt="img" class="imgItem" onclick="previewImg(this)">\n' +
+                    '                <span> X </span>\n' +
+                    '                <input type="hidden" name='+name+'[] value="'+res.data.src+'">\n' +
+                    '            </li>');
+            },
+            error:function (res) {
+                layer.msg("系统开小差", {
+                    icon: 2,
+                    time: 1000, //2秒关闭（如果不配置，默认是3秒）
+                    shade:0.5
+                });
+            },
+            complete:function () {
+                setTimeout(function () {
+                    layer.close(winIndex);
+                    layer.close(uploadinIndex);
+                    layer.closeAll('loading');
+                },1000)
+            }
+        })
+    }
+</script>

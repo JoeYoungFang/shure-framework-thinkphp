@@ -1,0 +1,11 @@
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\manage\\AdminRolePermissionManage.php","errorMsg":"Use of undefined constant POINST - assumed 'POINST' (this will throw an Error in a future version of PHP)","errorLine":44}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\utils\\PermissionUtil.php","errorMsg":"Indirect modification of overloaded element of app\\common\\model\\AdminRolePermissionModel has no effect","errorLine":67}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\utils\\PermissionUtil.php","errorMsg":"Indirect modification of overloaded element of app\\common\\model\\AdminRolePermissionModel has no effect","errorLine":67}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\utils\\PermissionUtil.php","errorMsg":"Indirect modification of overloaded element of app\\common\\model\\AdminRolePermissionModel has no effect","errorLine":67}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\utils\\PermissionUtil.php","errorMsg":"array_merge(): Argument #2 is not an array","errorLine":78}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\utils\\PermissionUtil.php","errorMsg":"array_merge(): Argument #2 is not an array","errorLine":78}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\utils\\PermissionUtil.php","errorMsg":"array_merge(): Argument #2 is not an array","errorLine":78}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\bean\\BaseBean.php","errorMsg":"Undefined index: alias","errorLine":63}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\bean\\BaseBean.php","errorMsg":"Undefined index: alias","errorLine":63}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\bean\\BaseBean.php","errorMsg":"Undefined index: alias","errorLine":63}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\common\\model\\BaseModel.php","errorMsg":"Fatal error: Call to a member function toArray() on null","errorLine":228}

@@ -1,0 +1,2 @@
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\admin\\controller\\AdminPermission.php","errorMsg":"Undefined variable: parentPermissionDetail","errorLine":84}
+{"errorFile":"D:\\Reer\\myFrameRender\\vueadmin\\application\\admin\\controller\\NoCheckPermission.php","errorMsg":"Fatal error: Call to undefined method app\\common\\manage\\AdminManage::getAdminUser()","errorLine":44}

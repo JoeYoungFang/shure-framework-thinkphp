@@ -1,0 +1,14 @@
+<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">{{$label}}</label>
+        <div class="layui-input-inline">
+            <input type="text" id="{{$name}}" name="{{$name}}" value="{{$value}}" lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('laydate',function () {
+        var laydate = layui.laydate;
+        laydateRender(laydate,'{{$name}}');
+    });
+</script>

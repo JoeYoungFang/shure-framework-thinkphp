@@ -1,0 +1,8 @@
+<div class="layui-form-item">
+    <div class="layui-form-item">
+        <label class="layui-form-label">{{$label}}</label>
+        <div class="layui-input-block">
+            <input type="{{$password ? 'password' : 'text'}}" value="{{$value}}" name="{{$name}}" placeholder="{{$label}}" class="layui-input" {{if condition="$require"}}required  lay-verify="{{$require}}"{{/if}} {{if condition="$disabled"}}disabled{{/if}}>
+        </div>
+    </div>
+</div>

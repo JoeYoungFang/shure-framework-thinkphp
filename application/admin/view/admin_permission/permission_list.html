@@ -1,0 +1,151 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<link rel="stylesheet" type="text/css" href="/H-UI/lib/zTree/v3/css/metroStyle/metroStyle.css" />
+<link rel="stylesheet" type="text/css" href="/H-UI/ztree.css" />
+<body>
+{{:widget('common/Common/nav',[array('权限管理','权限列表')])}}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    {{:widget('common/Button/addButton',['添加顶级权限','addTopPermission',[],$permissionStringArray,null,null])}}
+                    <span style="float: right">共有数据：<strong id="totalCount">{{$totalCount}}</strong> 条</span>
+                </div>
+                <div class="layui-card-body ">
+                    <div>
+                        <ul id="treeDemo" class="ztree">
+
+                        </ul>
+                    </div>
+                    <div id="log"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--请在下方写此页面业务相关的脚本-->
+
+<script type="text/javascript" src="/H-UI/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/H-UI/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript">
+    <!--
+    var permissionNode = {{$permissionTree|raw}};
+    var addChildPermission = "{{:in_array('addChildPermission',$permissionStringArray)}}";
+    var editPermission = "{{:in_array('editPermission',$permissionStringArray)}}";
+    var delPermission = "{{:in_array('delPermission',$permissionStringArray)}}";
+    var index = layer.load(0, {
+        shade: [1,'#fff'], //0.1透明度的白色背景
+    });
+    var setting = {
+        view: {
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            selectedMulti: false
+        },
+        edit: {
+            enable:true,
+            editNameSelectAll: true,
+            showRemoveBtn: showRemoveBtn,
+            showRenameBtn: showRenameBtn,
+            removeTitle:'删除',
+            renameTitle:'修改',
+        },
+        data: {
+            key: {
+                children: "children",
+                name:'name'
+            },
+            simpleData: {
+                enable: false,
+                idKey: "id",
+                pIdKey: "parent_id",
+            }
+        },
+        callback: {
+            beforeDrag: beforeDrag,
+            beforeEditName: beforeEditName,
+            beforeRemove: beforeRemove,
+            onRemove: onRemove,
+        }
+    };
+    function beforeDrag(treeId, treeNodes) {
+        return false;
+    }
+    function beforeEditName(treeId, treeNode) {//编辑时先触发
+        index = layerOpen('编辑权限',"editPermission?id="+treeNode.id);
+        return false;
+    }
+    function beforeRemove(treeId, treeNode) {//删除前触发
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        return removeNode(treeNode);
+    }
+    function onRemove(e, treeId, treeNode) {//删除后触发
+
+    }
+    function showRemoveBtn(treeId, treeNode) {//显示删除按钮
+        return !treeNode.isParent && delPermission;
+    }
+    function showRenameBtn(treeId, treeNode) {//显示重命名按钮
+        return editPermission;
+    }
+    function addHoverDom(treeId, treeNode) {//鼠标放置触发的node节点 添加子节点
+        if(!addChildPermission){
+            return false;
+        }
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='添加子权限' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+        if (btn) btn.bind("click", function(){
+            index = layerOpen( '添加子权限',"addChildPermission?id="+treeNode.id);
+        });
+    };
+    function removeHoverDom(treeId, treeNode) {//鼠标离开触发
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+    var treeNodes;
+    $(document).ready(function(){
+        treeNodes = permissionNode;
+        $.fn.zTree.init($("#treeDemo"), setting, treeNodes);
+        //$.fn.zTree.getZTreeObj("treeDemo").expandAll(true);
+        layer.close(index)
+    });
+    //删除节点
+    function removeNode(treeNode) {
+        var index = layer.load();
+        var message = false;
+        $.ajax({
+            async : false,
+            type: 'POST',
+            dataType : "json",
+            url: "delPermission",//请求的action路径
+            data:{id:treeNode.id},
+            success:function(res){ //请求成功后处理函数。
+                $("#totalCount").text(parseInt($("#totalCount").text())-1)
+                layerMsg("删除成功");
+                message = true;
+            },
+            error:function (res) {
+                try {
+                    let data = JSON.parse(res.responseText);
+                    layerMsg(data.errorMsg);
+                    message = false;
+                } catch (e) {
+                    layerMsg('系统异常');
+                }
+            },
+            complete:function () {
+                layer.close(index);
+            }
+        });
+        return message;
+    }
+    //-->
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

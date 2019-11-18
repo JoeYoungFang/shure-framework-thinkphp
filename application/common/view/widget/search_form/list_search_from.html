@@ -1,0 +1,50 @@
+<div class="layui-card-body ">
+<form class="layui-form layui-col-space5" id="searchForm">
+    <input type="hidden" name="orderFieldName" id="orderFieldName" value="{{$Think.get.orderFieldName}}">
+    <input type="hidden" name="orderType" id="orderType" value="{{$Think.get.orderType}}">
+    {{if condition="count($time)"}}
+        <div class="layui-inline layui-show-xs-block">
+            <input class="layui-input"  value="{{$time.beginTime}}" autocomplete="off" placeholder="开始日" name="beginTime" id="start">
+        </div>
+        <div class="layui-inline layui-show-xs-block">
+            <input class="layui-input"  value="{{$time.endTime}}" autocomplete="off" placeholder="截止日" name="endTime" id="end">
+        </div>
+    {{/if}}
+    {{if condition="is_array(current($keywords))"}}
+        {{foreach $keywords as $key=>$vo}}
+            <div class="layui-inline layui-show-xs-block">
+                <input type="text" name="{{$vo.key}}" value="{{$vo.value}}" placeholder="{{$vo.name}}" autocomplete="off" class="layui-input">
+            </div>
+        {{/foreach}}
+    {{elseif condition="count($keywords)"/}}
+        <div class="layui-inline layui-show-xs-block">
+            <input type="text" name="{{$keywords.key}}" value="{{$keywords.value}}" placeholder="{{$keywords.name}}" autocomplete="off" class="layui-input">
+        </div>
+    {{/if}}
+    {{if condition="is_array(current($selects))"}}
+        {{foreach $selects as $key=>$vo}}
+            <div class="layui-inline layui-show-xs-block">
+            <select name="{{$vo.key}}">
+                <option value="">{{$vo.name}}</option>
+                {{volist name="vo.options" id="v" key="k"}}
+                <option value="{{$k}}" {{$vo.value == ($k) ? "selected" : ""}}>{{$v}}</option>
+                {{/volist}}
+            </select>
+            </div>
+        {{/foreach}}
+    {{elseif condition="count($selects)"/}}
+        <div class="layui-inline layui-show-xs-block">
+            <select name="{{$selects.key}}">
+                <option value="">{{$selects.name}}</option>
+                {{volist name="selects.options" id="vo" key="key"}}
+                    <option value="{{$key - 1}}" {{$selects.value == ($key - 1) ? "selected" : ""}}>{{$vo}}</option>
+                {{/volist}}
+            </select>
+        </div>
+    {{/if}}
+    {{$append|raw}}
+    <div class="layui-inline layui-show-xs-block">
+        <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick="layer.load();"><i class="layui-icon">&#xe615;</i></button>
+    </div>
+</form>
+</div>

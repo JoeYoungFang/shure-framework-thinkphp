@@ -1,0 +1,2 @@
+<?php /*a:1:{s:84:"D:\Reer\myFrameRender\vueadmin\application\common\view\widget\button\add_button.html";i:1570972390;}*/ ?>
+<button class="layui-btn" onclick="xadmin.open('<?php echo htmlentities($name); ?>','<?php echo htmlentities($url); ?>?<?php echo htmlentities($params); ?>','<?php echo htmlentities($width); ?>','<?php echo htmlentities($height); ?>')"><i class="layui-icon"></i><?php echo htmlentities($name); ?></button>

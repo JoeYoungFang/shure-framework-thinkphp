@@ -1,0 +1,44 @@
+ul{
+    padding: 0 !important;
+    border: 1px #ececec solid;
+}
+li > ul{
+    padding-left: 36px !important;
+}
+ul > li{
+    padding: 0 !important;
+    border: 0px #ececec solid;
+}
+ul > li > a{
+    width: 98%;
+}
+ul > li > a > .remove{
+    float: right;
+}
+ul > li > a > .edit{
+    float: right;
+}
+ul > li > a > .add{
+    float: right;
+}
+.ztree li span.button.ico_docu{
+    margin-right:2px;
+    background:url("../H-UI/images/permission.png") no-repeat scroll 0 0 transparent;
+    background-size: 80% 80%;
+    vertical-align:top;
+}
+.ico_open{
+    background:url("../H-UI/images/permission.png") no-repeat scroll 0 0 transparent !important;
+    background-size:20px 20px !important;
+    vertical-align:top;
+}
+.ico_close{
+    background:url("../H-UI/images/permission.png") no-repeat scroll 0 0 transparent !important;
+    background-size:20px 20px !important;
+    vertical-align:top;
+}
+.ico_docu{
+    background:url("../H-UI/images/permission.png") no-repeat scroll 0 0 transparent !important;
+    background-size:20px 20px !important;
+    vertical-align:top;
+}

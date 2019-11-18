@@ -1,0 +1,40 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            {{if condition="$parentPermissionDetail"}}
+                {{:widget('common/Form/input',['父级权限','',$parentPermissionDetail.name,true,true])}}
+                <input type="hidden" name="parent_id" value="{{$parentPermissionDetail.id}}">
+                {{:widget('common/Form/input',['权限节点名','name','',true])}}
+                {{:widget('common/Form/input',['模块名','model','admin',true,true])}}
+                {{:widget('common/Form/input',['控制器名','controller','',true])}}
+                {{:widget('common/Form/input',['方法名','action','',true])}}
+            {{else /}}
+                {{:widget('common/Form/input',['权限节点名','name','',true])}}
+                {{:widget('common/Form/input',['模块名','model','admin',true,true])}}
+                {{:widget('common/Form/input',['控制器名','controller','',false])}}
+                {{:widget('common/Form/input',['方法名','action','',false])}}
+            {{/if}}
+            {{:widget('common/Form/input',['图标','icon','',false])}}
+            {{:widget('common/Form/select',['菜单显示','is_play',1,array(0 => '不显示',1 => '显示')])}}
+            {{:widget('common/Form/submit')}}
+        </form>
+    </div>
+</div>
+</body>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+
+    layui.use(['form','jquery'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        //监听提交
+        form.on('submit(submitForm)', function(data){
+            ajaxRequest('',data.field)
+            return false;
+        });
+    });
+</script>

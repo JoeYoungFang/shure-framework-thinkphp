@@ -1,0 +1,17 @@
+<div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">{{$label}}</label>
+    <div class="layui-input-block">
+        <textarea id="{{$name}}" name="{{$name}}" style="display: none;">{{$value}}</textarea>
+    </div>
+</div>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        layedit.set({
+            uploadImage: {
+                url: '/admin/NoCheckPermission/uploadFile' //接口url
+            }
+        });
+        layedit.build('{{$name}}'); //建立编辑器
+    });
+</script>

@@ -1,0 +1,15 @@
+<div class="x-nav" style="cursor: pointer;">
+          <span class="layui-breadcrumb">
+              {{volist name='navArray' id="vo"}}
+              {{if condition="is_array($vo)"}}
+              <a href="{{$vo[0]}}">{{$vo[1]|raw}}</a>
+              {{else /}}
+              <a >{{$vo|raw}}</a>
+              {{/if}}
+              {{/volist}}
+            <!--<a>
+              <cite>导航元素</cite></a>-->
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="layer.load();location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+</div>

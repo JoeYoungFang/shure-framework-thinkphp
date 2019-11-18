@@ -1,0 +1,134 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<body>
+{{:widget('common/Common/nav',[array('管理员管理','用户列表')])}}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <table id="myTable" lay-filter="myTable"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/html" id="imgTpl">
+    <img src="{{ d.avatar }}">
+</script>
+<script type="text/html" id="testBar">
+    <a class="layui-btn" lay-event="add">添加小节</a>
+    <a class="layui-btn" lay-event="test">删除</a>
+</script>
+<div id="add" style="display: none">
+    选择类型
+</div>
+<script>
+    layui.config({}).extend({
+        soulTable: '/treetableAsync/soulTable'  // 模块别名
+        ,tableFilter:'/treetableAsync/tableFilter'
+        ,excel:'/treetableAsync/excel'
+        ,tableChild:'/treetableAsync/tableChild'
+        ,tableMerge:'/treetableAsync/tableMerge'
+    });
+
+    layui.use(['form', 'table','soulTable'], function () {
+        var table = layui.table,
+            soulTable = layui.soulTable;
+
+        table.render({
+            elem: '#myTable'
+            ,data:[{},{}]
+            ,page: false
+            ,cols: [[
+                {title: '#',width:50, lazy: true, children:[
+                        {
+                            title: '图文'
+                            ,url: 'data-1.json'
+                            ,height: 300
+                            ,page: false
+                            ,cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field: 'title', title: '诗词', sort: true},
+                                {field: 'dynasty', title: '朝代', sort: true},
+                                {field: 'author', title: '作者' },
+                                {field: 'content', title: '内容'},
+                                {field: 'type', title: '类型', sort:true},
+                                {field: 'heat', title: '点赞数', sort:true},
+                                {field: 'createTime', title: '录入时间', sort:true}
+                            ]]
+                            ,done: function () {
+                                soulTable.render(this);
+                            }
+                        },
+                        {
+                            title: '视频'
+                            ,url: 'data-1.json'
+                            ,height: 300
+                            ,page: false
+                            ,cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field: 'title', title: '诗词', sort: true},
+                                {field: 'dynasty', title: '朝代', sort: true},
+                                {field: 'author', title: '作者' },
+                                {field: 'content', title: '内容'},
+                                {field: 'type', title: '类型', sort:true},
+                                {field: 'heat', title: '点赞数', sort:true},
+                                {field: 'createTime', title: '录入时间', sort:true}
+                            ]]
+                            ,done: function () {
+                                soulTable.render(this);
+                            }
+                        },
+                        {
+                            title: '音频'
+                            ,url: 'data-1.json'
+                            ,height: 300
+                            ,page: false
+                            ,cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field: 'title', title: '诗词', sort: true},
+                                {field: 'dynasty', title: '朝代', sort: true},
+                                {field: 'author', title: '作者' },
+                                {field: 'content', title: '内容'},
+                                {field: 'type', title: '类型', sort:true},
+                                {field: 'heat', title: '点赞数', sort:true},
+                                {field: 'createTime', title: '录入时间', sort:true}
+                            ]]
+                            ,done: function () {
+                            }
+                        }
+                    ]},
+                {field: 'title', title: '诗词', sort: true,templet:"#imgTpl"},
+                {field: 'dynasty', title: '朝代', sort: true},
+                {field: 'author', title: '作者' },
+                {field: 'content', title: '内容'},
+                {field: 'type', title: '类型', sort:true},
+                {field: 'heat', title: '点赞数', sort:true},
+                {field: 'createTime', title: '录入时间', sort:true},
+                {field: 'right', title: '操作', toolbar:"#testBar"},
+            ]]
+            ,done: function () {
+                soulTable.render(this)
+            }
+        });
+        table.on('tool(myTable)',function (obj ){
+            console.log(obj)
+            if(obj.event === 'add'){
+                var index = layer.open({
+                    content: $('#add')
+                    ,type:1
+                    ,area:['80%','80%']
+                    ,btn: ['按钮一']
+                    ,yes: function(index){
+                        layer.close(index)
+                        layer.open({
+                            content: "http://baidu.com"
+                            ,type:2
+                            ,area:['80%','80%']
+                        });
+                    }
+                });
+            }
+        })
+    })
+</script>

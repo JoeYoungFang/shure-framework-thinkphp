@@ -1,0 +1,13 @@
+.layui-card{
+    min-height: 600px;
+}
+
+table > thead > tr{
+    cursor: pointer;
+}
+table > thead > tr > th{
+    text-align: center !important;
+}
+table > tbody > tr > td{
+    text-align: center;
+}

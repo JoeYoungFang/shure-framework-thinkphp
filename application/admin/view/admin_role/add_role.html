@@ -1,0 +1,26 @@
+{{include file="common@layout/_meta_x-admin" /}}
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            {{:widget('common/Form/input',['角色名','name','',true])}}
+            {{:widget('common/Form/submit')}}
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        //监听提交
+        form.on('submit(submitForm)', function(data){
+            ajaxRequest('',data.field)
+            return false;
+        });
+    });
+
+
+
+</script>

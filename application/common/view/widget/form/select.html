@@ -1,0 +1,13 @@
+<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">{{$label}}</label>
+        <div class="layui-input-inline">
+            <select name="{{$name}}" lay-verify="required">
+                <option value="">{{$label}}</option>
+                {{volist name="options" id="vo" key="key"}}
+                <option value="{{$key-1}}" {{$key - 1 == $value ? "selected" : ""}}>{{$vo}}</option>
+                {{/volist}}
+            </select>
+        </div>
+    </div>
+</div>
