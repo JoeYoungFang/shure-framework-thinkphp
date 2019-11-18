@@ -1,7 +1,7 @@
 
 README.MD
 ===============
-## 新建数据库，运行 projectDemo.sql,对应修改 confi/database.php 数据库配置
+## 新建数据库，运行 projectDemo.sql,对应修改 config/database.php 数据库配置
 
 ## 内置管理员管理模块
    
@@ -31,8 +31,8 @@ README.MD
 
     server {
         listen       80;
-        server_name  vueadmin.com;
-        root   "D:\Reer\myFrameRender\vueadmin\public";
+        server_name  ###;
+        root   #项目路径\vueadmin\public#;
         location / {
             if (!-e $request_filename) {
                 rewrite ^/(.*)$ /index.php/$1;
